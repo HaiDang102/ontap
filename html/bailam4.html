@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHOA HOC TIENG ANH </title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        .container {
+            margin-top: 20px;
+            width: 960px;
+            height: 650px;
+            border: aqua;
+        }
+        
+        nav ul li {
+            width: 150px;
+            color: blue;
+        }
+        
+        header img {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .nav-link {
+            font-weight: bold;
+            color: blue !important
+        }
+        
+        [class*="col-"] {
+            padding-right: 0;
+            padding-left: 0;
+        }
+        
+        .f1 {
+            background-color: rgb(78, 78, 237);
+        }
+        
+        .maudo {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            var i = 2; // Đặt biến ngoài để giữ giá trị toàn cục
+
+            $("#open").click(function() {
+                $("#myModal").modal('show');
+            });
+
+            // đóng modal 
+            $("#close").click(function() {
+                $("#myModal").modal('hide')
+            });
+
+
+            // Khong duoc rong va ky tu dau la chu viet hoa 
+            function KiemtraHT() {
+                var kt = /(^[A-Z]{1}[a-z]+)(\s[A-Z]{1}[a-z]*)+$/;
+                var chuoiHt = $("#txtht").val().trim();
+                var thongbao = $("#tbht");
+                if (chuoiHt === "") {
+                    thongbao.html("Khong duoc de rong !!! ").addClass('maudo');
+                    return false;
+                }
+                if (!kt.test(chuoiHt)) {
+                    thongbao.html("ký tự đầu của mỗi từ là chữ hoa !!!").addClass('maudo');
+                    return false;
+                }
+                thongbao.html("*dung roi !*").removeClass('maudo');
+                return true;
+
+            };
+            $("#txtht").blur(KiemtraHT);
+
+            // ngay sinh {}
+            function kiemtrangaysinh() {
+                var ngaysinh = $("#txtns").val();
+                var ngayhientai = new Date();
+                var ngaynhap = new Date(ngaysinh);
+                var thongbao = $("#tbns");
+
+                if (ngaysinh === "") {
+                    thongbao.html("Vui long chon ngay sinh !!").addClass('maudo');
+                    return false;
+                }
+                if (ngaynhap >= ngayhientai) {
+                    thongbao.html(" Ngay sinh phai truoc ngay hien tai ").addClass('maudo');
+                    return false;
+                }
+                thongbao.html("hop le !!!").removeClass('maudo');
+                return true;
+            }
+            $("#txtns").blur(kiemtrangaysinh);
+
+            // so dien thoai bat dau voi 09,03,08 co dang 10 so
+            function kiemtrasodt() {
+                var kt = /^(09|08|03)\d{8}$/;
+                var chuoisdt = $("#txtsdt").val().trim();
+                var thongbao = $("#tbsdt");
+                if (chuoisdt === "") {
+                    thongbao.html("Khong duoc bo trong !!!").addClass('maudo');
+                    return false;
+                }
+                if (!kt.test(chuoisdt)) {
+                    thongbao.html("Nhap sai dinh dang vui long voi bat dau bang 08,08,03 voi 10 chu so !");
+                    return false;
+                }
+                thongbao.html("So dien thoai hop le !!").removeClass('maudo');
+                return true;
+            };
+            $("#txtsdt").blur(kiemtrasodt);
+
+            //////// kiem tra email :
+            function kiemtraemail() {
+                var kt = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[c][o][m]$/;
+                var chuoiemail = $("#txtdc").val();
+                var thongbao = $("#tbdc");
+                if (chuoiemail === "") {
+                    thongbao.html("khong dc bo trong !!!").addClass('maudo');
+                    return false;
+                }
+                if (!kt.test(chuoiemail)) {
+                    thongbao.html(" Nhap sai cu phap!! vui long nhap co @ va .com !").addClass('maudo');
+                    return false;
+                }
+                thongbao.html(" Nhap dung roi cha ").removeClass('maudo');
+                return true;
+
+            }
+            $("#txtdc").blur(kiemtraemail);
+
+            $("#course").change(function() {
+                let durations = {
+                    "Co Ban": "3 tháng",
+                    "Giao Tiep": "6 tháng",
+                    "Ielts": "12 tháng"
+                };
+                $("#duration").val(durations[$(this).val()]);
+            });
+
+            /////////
+            $(".form-control").on("input", function() {
+                $(this).next("span").html(""); // Xóa thông báo lỗi khi người dùng nhập
+            });
+
+
+            //////////
+            //hủy modal
+
+
+            $("#btnCancel").click(function() {
+                $("#myModal").modal('hide');
+            });
+
+            $("#btnSave").click(function() {
+                var ht = $("#txtht").val();
+                var ngaysinh = $("#txtns").val();
+                var sdt = $("#txtsdt").val();
+                var email = $("#txtdc").val();
+                var kh = $("#course").val();
+                var hinhthuc = $("input[name='mode']:checked").val() // Kiểm tra radio
+                var skills = [];
+                $("input[name='skills']:checked").each(function() {
+                    skills.push($(this).val());
+                });
+                if (!hinhthuc || skills.length === 0) {
+                    alert("Hình thức học và kỹ năng luyện tập là bắt buộc!");
+                    return false;
+                }
+                if (!KiemtraHT() || !kiemtrangaysinh() || !kiemtrasodt() || !kiemtraemail()) {
+                    alert("Vui lòng điền đầy đủ thông tin chính xác!");
+                    return false;
+                }
+
+
+
+
+                var them = `<tr>
+            <td>${i++}</td>
+            <td>${ht}</td>
+            <td>${ngaysinh}</td>
+            <td>${sdt}</td>
+            <td>${email}</td>
+            <td>${kh}</td>
+            <td>${hinhthuc}</td>
+            <td>${skills}</td>
+          
+        </tr>`;
+                $("#tbdanhsach tbody").append(them);
+                $("#myModal").modal("hide");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="text-center">
+            <div class="row">
+                <img src="../img/logotienganh.png" width="109%">
+            </div>
+        </header>
+        <nav class="navbar navbar-light navbar-expand-lg ">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#" class="nav-link">Free English Coourse</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Trang chu</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"> Gioi Thieu</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Khoa Hoc</a></li>
+                <li class="nav-item"><button id="open" class=" btn btn-light " style=" background-color: red; color: white">Dang ky</button></li>
+            </ul>
+        </nav>
+
+        <body>
+            <table class="table  table-hover table-light table-bordered table-primary table table-striped text-center" id="tbdanhsach">
+                <h3 style="font-weight: bold;"> DANH SACH DANG KY KHOA HOC</h3>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>HO TEN</th>
+                        <th>NGAY SINH</th>
+                        <th>DIEN THOAI</th>
+                        <th>EMAIL</th>
+                        <th>KHOA HOC</th>
+                        <th>HINH THUC HOC</th>
+                        <th>SKILLS</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>(1)</td>
+                        <td>(2)</td>
+                        <td>(3)</td>
+                        <td>(4)</td>
+                        <td>(5)</td>
+                        <td>(6)</td>
+                        <td>(7)</td>
+                        <td>(8)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </body>
+        <footer class=" text-center mt-5 py-10  text-white" style="background-color: rgb(36, 36, 243); font-weight: bold;">
+            <h6> THONG TIN SINH VIEN :</h6>
+            <p> Họ tên : Nguyễn Hải Đăng</p>
+            <p>Mã sinh viên : 22645921</p>
+            <p> Mã Lớp DHHTTT18A</p>
+        </footer>
+
+
+        <div class="row">
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4> THÔNG TIN ĐĂNG KÍ </h4>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="true">
+                                &times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="fullname">Họ Tên</label>
+                                    <input type="text" id="txtht" placeholder=" Nguyen Van An " class="form-control" autofocus>
+                                    <span id="tbht"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Ngày Sinh</label>
+                                    <input type="date" id="txtns" class="form-control" required>
+                                    <span id="tbns"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">SDT</label>
+                                    <input type="text" id="txtsdt" class="form-control">
+                                    <span id="tbsdt"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input type="email" id="txtdc" class="form-control" placeholder="vs:abc@gmail.com">
+                                    <span id="tbdc"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="course">Khóa Học</label>
+                                    <select id="course" class="form-control">
+                                        <option value="Co Ban">Anh văn cơ bản</option>
+                                        <option value="Giao Tiep">Anh văn giao tiếp</option>
+                                        <option value="Ielts">Luyện thi IELTS</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Thời gian học</label>
+                                    <input type="text" id="duration" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-10  col-sm-8">
+                                        <label for="">Chon hinh thuc hoc</label>
+                                        <input type="radio" name="mode" value="Online"> Online
+                                        <input type="radio" name="mode" value="Offline"> Offline
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-6 col-sm-3">Kỹ năng luyện tập</label>
+                                    <input type="checkbox" name="skills" value="Listening"> Listening
+                                    <input type="checkbox" name="skills" value="Speaking"> Speaking
+                                    <input type="checkbox" name="skills" value="Reading"> Reading
+                                    <input type="checkbox" name="skills" value="Writing"> Writing
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnSave" class="btn btn-success">Đăng Ký </button>
+                            <button type="submit" id="btnCancel" class="btn btn-danger ">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

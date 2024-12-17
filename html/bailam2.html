@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-12 border border-1">
+                <img src="../img/hinhbai.jpg" width="100%" alt="" srcset="">
+            </div>
+
+        </div>
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-12 border border-1">
+                <ul class="nav justify-content-left">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" aria-current="page">Trang chu</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  id="btnOpen" href="#" data-bs-toggle="modal" data-bs-target="#modalId">Dang ky</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-12 border border-1">
+                <h3 class="text-center">LIST OF MEMBERS</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-primary" id="tblds">
+
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Ho ten</th>
+                            <th scope="col">Gioi tinh</th>
+                            <th scope="col">Ngôn ngữ</th>
+                            <th scope="col">So dien thoai</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Khoa hoc</th>
+                            <th scope="col">Hoc phí</th>
+
+                        </tr>
+
+
+
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-12 border border-1">MSSV - Ho ten - Lop - So may</div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <!--  Modal trigger button  -->
+    <!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+        Launch
+    </button> -->
+
+    <!-- Modal Body-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        THÔNG TIN HỌC VIÊN
+                    </h5>
+                    <button type="button" class="close" id="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="container">
+                            <form>
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Ho va ten</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="txtht" />
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Gioi tinh</label>
+                                    <div class="col-8">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gioitinh" id="txtgt" value="Nam" />
+                                            <label class="form-check-label">Nam</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gioitinh" id="txtgt" value="Nữ" />
+                                            <label class="form-check-label">Nu</label>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Ngon ngữ</label>
+                                    <div class="col-8">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="" id="txtnn" value="English" />
+                                            <label class="form-check-label">English</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="" id="txtnn" value="France" />
+                                            <label class="form-check-label">France</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="" id="txtnn" value="China" />
+                                            <label class="form-check-label">China</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">So dien thoai</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="txtsdt" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Ngay sinh</label>
+                                    <div class="col-8">
+                                        <input type="date" class="form-control" id="txtns" required/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Dia chi</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="txtdc" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Ban muon tham gia khoa hoc nao</label>
+                                    <div class="col-8">
+                                        <div class="mb-3">
+
+                                            <select class="form-select form-select-lg" name="" id="lstkh">
+                                           
+                                            <option >2 tuan</option>
+                                            <option >4 tuan</option>
+                                            <option >6 tuan</option>
+                                        </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Hoc phí</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="txthp" readonly/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-4 col-form-label">Anh dai dien</label>
+                                    <div class="col-8">
+                                        <input type="file" class="form-control" id="txtdc" />
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-12 d-grid">
+                                        <button type="button" id="btnsave" class="btn btn-success" onclick="Luu()">
+                                            Luu
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var i = 1;
+
+        $(document).ready(function() {
+            $("#btnOpen").click(function() {
+                $("#myModal").modal('show')
+            });
+            $("#close").click(function() {
+                $("#myModal").modal('hide')
+            });
+            $("#btnsave").click(function() {
+                var ht = $("#txtht").val();
+                var gt = $("#txtgt").val();
+                var nn = $("#txtnn").val();
+                var sdt = $("#txtsdt").val();
+                var ns = $("#txtns").val();
+                var dc = $("#txtdc").val();
+                var lstkh = $("#txtlstkh").val();
+                var hp = $("#txthp").val();
+                var them = `<tr>
+                    <td>${i++}</td>
+                    <td>${ht}</td>
+                    <td>${gt}</td>
+                    <td>${nn}</td>
+                    <td>${sdt}</td>
+                    <td>${ns}</td>
+                    <td>${dc}</td>
+                    <td>${lstkh}</td>
+                    <td>${hp}</td>
+                </tr>`;
+
+                $("#tblds").append(them);
+                $("#myModal").modal("hide");
+            });
+        })
+    </script>
+
+</body>
+
+</html>
